@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UnitConv.tools – Universal Converter</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #007bff;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    main {
+      width: 92%;
+      max-width: 480px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    select, input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #005ec4;
+    }
+
+    .swap-btn {
+      background: #28a745;
+      margin-top: 10px;
+    }
+
+    .swap-btn:hover {
+      background: #1f7a33;
+    }
+
+    .result {
+      margin-top: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 15px;
+    }
+
+    nav button {
+      flex: 1;
+      margin: 0 5px;
+      background: #eee;
+      color: #333;
+    }
+
+    nav button.active {
+      background: #007bff;
+      color: white;
+    }
+
+    .ad-slot {
+      width: 100%;
+      text-align: center;
+      background: #fafafa;
+      border: 1px dashed #ccc;
+      margin: 15px 0;
+      padding: 12px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: gray;
+      font-size: 14px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>UnitConv.tools</header>
+
+<!-- ✅ AD #1 — Top Banner -->
+<div class="ad-slot">Ad Slot #1 – Banner</div>
+
+<main>
+
+  <nav>
+    <button id="distanceTab" class="active" onclick="showTab('distance')">Distance</button>
+    <button id="tempTab" onclick="showTab('temp')">Temperature</button>
+    <button id="weightTab" onclick="showTab('weight')">Weight</button>
+    <button id="volumeTab" onclick="showTab('volume')">Volume</button>
+  </nav>
+
+  <!-- ✅ DISTANCE CONVERTER -->
+  <section id="distance">
+    <h3>Distance Converter</h3>
+
+    <input type="number" id="distVal" placeholder="Enter value">
+
+    <select id="distFrom">
+      <option value="km">Kilometers</option>
+      <option value="m">Meters</option>
+      <option value="mile">Miles</option>
+      <option value="ft">Feet</option>
+    </select>
+
+    <button class="swap-btn" onclick="swap('distFrom','distTo')">🔁 Swap Units</button>
+
+    <select id="distTo">
+      <option value="km">Kilometers</option>
+      <option value="m">Meters</option>
+      <option value="mile">Miles</option>
+      <option value="ft">Feet</option>
+    </select>
+
+    <button onclick="convertDistance()">Convert</button>
+
+    <div id="distResult" class="result"></div>
+  </section>
+
+  <!-- ✅ AD #2 — Below distance -->
+  <div class="ad-slot">Ad Slot #2 – In-content</div>
+
+  <!-- ✅ TEMPERATURE -->
+  <section id="temp" style="display:none;">
+    <h3>Temperature Converter</h3>
+
+    <input type="number" id="tempVal" placeholder="Enter value">
+
+    <select id="tempFrom">
+      <option value="C">Celsius (°C)</option>
+      <option value="F">Fahrenheit (°F)</option>
+      <option value="K">Kelvin (K)</option>
+    </select>
+
+    <button class="swap-btn" onclick="swap('tempFrom','tempTo')">🔁 Swap Units</button>
+
+    <select id="tempTo">
+      <option value="C">Celsius (°C)</option>
+      <option value="F">Fahrenheit (°F)</option>
+      <option value="K">Kelvin (K)</option>
+    </select>
+
+    <button onclick="convertTemp()">Convert</button>
+
+    <div id="tempResult" class="result"></div>
+  </section>
+
+  <!-- ✅ AD #3 -->
+  <div class="ad-slot">Ad Slot #3 – In-content</div>
+
+  <!-- ✅ WEIGHT -->
+  <section id="weight" style="display:none;">
+    <h3>Weight Converter</h3>
+
+    <input type="number" id="weightVal" placeholder="Enter value">
+
+    <select id="weightFrom">
+      <option value="kg">Kilograms</option>
+      <option value="g">Grams</option>
+      <option value="lb">Pounds</option>
+      <option value="oz">Ounces</option>
+    </select>
+
+    <button class="swap-btn" onclick="swap('weightFrom','weightTo')">🔁 Swap Units</button>
+
+    <select id="weightTo">
+      <option value="kg">Kilograms</option>
+      <option value="g">Grams</option>
+      <option value="lb">Pounds</option>
+      <option value="oz">Ounces</option>
+    </select>
+
+    <button onclick="convertWeight()">Convert</button>
+
+    <div id="weightResult" class="result"></div>
+  </section>
+
+  <!-- ✅ AD #4 -->
+  <div class="ad-slot">Ad Slot #4 – In-content</div>
+
+  <!-- ✅ VOLUME -->
+  <section id="volume" style="display:none;">
+    <h3>Volume Converter</h3>
+
+    <input type="number" id="volVal" placeholder="Enter value">
+
+    <select id="volFrom">
+      <option value="l">Liters</option>
+      <option value="ml">Milliliters</option>
+      <option value="gal">Gallons</option>
+      <option value="cup">Cups</option>
+    </select>
+
+    <button class="swap-btn" onclick="swap('volFrom','volTo')">🔁 Swap Units</button>
+
+    <select id="volTo">
+      <option value="l">Liters</option>
+      <option value="ml">Milliliters</option>
+      <option value="gal">Gallons</option>
+      <option value="cup">Cups</option>
+    </select>
+
+    <button onclick="convertVolume()">Convert</button>
+
+    <div id="volumeResult" class="result"></div>
+  </section>
+
+  <!-- ✅ AD #5 -->
+  <div class="ad-slot">Ad Slot #5 – In-content</div>
+
+</main>
+
+<!-- ✅ Sidebar (3 ads) — simulated inline for mobile -->
+<div class="ad-slot">Ad Slot #6 – Sidebar Top</div>
+<div class="ad-slot">Ad Slot #7 – Sidebar Middle</div>
+<div class="ad-slot">Ad Slot #8 – Sidebar Bottom</div>
+
+<!-- ✅ AD #9 between main & footer -->
+<div class="ad-slot">Ad Slot #9 – Banner</div>
+
+<!-- ✅ FOOTER -->
+<footer>
+  © 2025 UnitConv.tools – All rights reserved  
+</footer>
+
+<!-- ✅ AD #10 — Footer banner -->
+<div class="ad-slot">Ad Slot #10 – Footer Banner</div>
+
+<script>
+
+function showTab(tab) {
+  document.querySelectorAll("section").forEach(s => s.style.display = "none");
+  document.getElementById(tab).style.display = "block";
+
+  document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+  document.getElementById(tab + "Tab").classList.add("active");
+}
+
+function swap(a, b) {
+  let x = document.getElementById(a);
+  let y = document.getElementById(b);
+  let temp = x.value;
+  x.value = y.value;
+  y.value = temp;
+}
+
+/* ✅ Distance */
+function convertDistance() {
+  let v = parseFloat(distVal.value);
+  if (isNaN(v)) return;
+
+  let toMeters = { km: v*1000, m: v, mile: v*1609.34, ft: v*0.3048 };
+  let meters = toMeters[distFrom.value];
+
+  let result = {
+    km: meters/1000, 
+    m: meters, 
+    mile: meters/1609.34, 
+    ft: meters/0.3048
+  }[distTo.value];
+
+  distResult.textContent = `${v} ${distFrom.value} = ${result.toFixed(4)} ${distTo.value}`;
+}
+
+/* ✅ Temperature */
+function convertTemp() {
+  let v = parseFloat(tempVal.value);
+  if (isNaN(v)) return;
+
+  let C = tempFrom.value === "C" ? v :
+          tempFrom.value === "F" ? (v - 32)*5/9 :
+          v - 273.15;
+
+  let result = tempTo.value === "C" ? C :
+               tempTo.value === "F" ? C * 9/5 + 32 :
+               C + 273.15;
+
+  tempResult.textContent = `${v}°${tempFrom.value} = ${result.toFixed(2)}°${tempTo.value}`;
+}
+
+/* ✅ Weight */
+function convertWeight() {
+  let v = parseFloat(weightVal.value);
+  if (isNaN(v)) return;
+
+  let grams = { kg: v*1000, g: v, lb: v*453.592, oz: v*28.3495 }[weightFrom.value];
+  let result = { kg: grams/1000, g: grams, lb: grams/453.592, oz: grams/28.3495 }[weightTo.value];
+
+  weightResult.textContent = `${v} ${weightFrom.value} = ${result.toFixed(4)} ${weightTo.value}`;
+}
+
+/* ✅ Volume */
+function convertVolume() {
+  let v = parseFloat(volVal.value);
+  if (isNaN(v)) return;
+
+  let ml = { l: v*1000, ml: v, gal: v*3785.41, cup: v*240 }[volFrom.value];
+  let result = { l: ml/1000, ml: ml, gal: ml/3785.41, cup: ml/240 }[volTo.value];
+
+  volumeResult.textContent = `${v} ${volFrom.value} = ${result.toFixed(4)} ${volTo.value}`;
+}
+
+</script>
+</body>
+</html>
